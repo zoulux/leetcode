@@ -1,9 +1,5 @@
 package leetcode
 
-import (
-	. "mutil"
-)
-
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	s, in, inpre := head, head, head // 哨兵先探路，步兵随其后，步兵上把手
 

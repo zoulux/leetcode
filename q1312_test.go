@@ -1,6 +1,5 @@
 package leetcode
 
-import "mutil"
 
 func minInsertions(s string) int {
 	n := len(s)
@@ -16,7 +15,7 @@ func minInsertions(s string) int {
 			if s[i] == s[j] {
 				dp[j] = pre
 			} else {
-				dp[j] = mutil.Min(dp[j-1], dp[j]) + 1
+				dp[j] = Min(dp[j-1], dp[j]) + 1
 			}
 			pre = temp
 		}

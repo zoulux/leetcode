@@ -1,6 +1,5 @@
 package leetcode
 
-import . "mutil"
 
 /**
  * Definition for a binary tree node.

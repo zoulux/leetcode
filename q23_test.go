@@ -2,7 +2,6 @@ package leetcode
 
 import (
 	"container/heap"
-	. "mutil"
 	"sort"
 	"testing"
 )
