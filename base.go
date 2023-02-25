@@ -41,6 +41,6 @@ type TreeNode struct {
 //
 //}
 
-func NewTreeNode(values ...*int) *TreeNode {
+func NewTreeNode(values ...int) *TreeNode {
 	return &TreeNode{}
 }
