@@ -37,10 +37,23 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-//func (t *TreeNode) String() string {
-//
-//}
-
+// 0代表节点为空
 func NewTreeNode(values ...int) *TreeNode {
-	return &TreeNode{}
+	return createBinaryTree(0, values)
+}
+
+func createBinaryTree(i int, nums []int) *TreeNode {
+	if nums[i] == 0 {
+		return nil
+	}
+	tree := &TreeNode{Val: nums[i]}
+	//左节点的数组下标为1,3,5...2*i+1
+	if i < len(nums) && 2*i+1 < len(nums) {
+		tree.Left = createBinaryTree(2*i+1, nums)
+	}
+	//右节点的数组下标为2,4,6...2*i+2
+	if i < len(nums) && 2*i+2 < len(nums) {
+		tree.Right = createBinaryTree(2*i+2, nums)
+	}
+	return tree
 }
