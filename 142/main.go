@@ -15,5 +15,32 @@ func main() {
  */
 func detectCycle(head *ListNode) *ListNode {
 
-	return nil
+	fast, slow := head, head
+	var enter *ListNode
+	for slow != nil && fast != nil {
+		fast = fast.Next
+		if fast != nil {
+			fast = fast.Next
+		}
+		slow = slow.Next
+
+		if fast == slow {
+			enter = fast
+			break
+		}
+	}
+
+	if enter == nil {
+		// 无环
+		return nil
+	}
+
+	slow = head
+
+	for slow != enter {
+		slow = slow.Next
+		enter = enter.Next
+	}
+
+	return slow
 }
