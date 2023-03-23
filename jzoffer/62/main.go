@@ -15,20 +15,9 @@ func main() {
 }
 
 func lastRemaining(n int, m int) int {
-
-	arr := make([]int, n)
-	for i := range arr {
-		arr[i] = i
+	pos := 0 // 最终活下来那个人的初始位置
+	for i := 2; i <= n; i++ {
+		pos = (pos + m) % i // 每次循环右移
 	}
-
-	s := -1
-	for len(arr) != 1 {
-		ln := len(arr)
-		s += m
-		if x := s % ln; x != 0 {
-			arr = append(arr[:x], arr[x+1:]...)
-		}
-	}
-
-	return 0
+	return pos
 }
