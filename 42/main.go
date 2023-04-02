@@ -9,30 +9,47 @@ import "fmt"
 
 func main() {
 	fmt.Println(trap([]int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}))
+	fmt.Println(trap([]int{0}))
 }
 
 func trap(height []int) int {
-	left, right := 0, len(height)-1
-	leftMax, rightMax := 0, 0
-	var ans int
+	n := len(height)
+	dpleft := make([]int, len(height))
+	dpright := make([]int, len(height))
 
-	for left <= right {
-		if height[left] < height[right] {
-			if height[left] > leftMax {
-				leftMax = height[left]
-			} else {
-				ans += leftMax - height[left]
-			}
-			left++
-		} else {
-			if height[right] > rightMax {
-				rightMax = height[right]
-			} else {
-				ans += rightMax - height[right]
-			}
-			right--
-		}
+	dpleft[0] = height[0]
+	for i := 1; i < len(height); i++ {
+		dpleft[i] = max(height[i], dpleft[i-1])
 	}
 
+	dpright[n-1] = height[n-1]
+	for i := n - 2; i >= 0; i-- {
+		dpright[i] = max(height[i], dpright[i+1])
+	}
+
+	var ans int
+	for i := 0; i < n; i++ {
+		ans += min(dpleft[i], dpright[i]) - height[i]
+	}
 	return ans
+}
+
+func min(a ...int) int {
+	res := a[0]
+	for _, v := range a[1:] {
+		if v < res {
+			res = v
+		}
+	}
+	return res
+}
+
+func max(a ...int) int {
+	res := a[0]
+	for _, v := range a[1:] {
+		if v > res {
+			res = v
+		}
+	}
+	return res
 }
