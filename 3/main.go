@@ -4,27 +4,32 @@ import "fmt"
 
 func main() {
 
-	fmt.Println(lengthOfLongestSubstring("abcabcbb")) //3
-	fmt.Println(lengthOfLongestSubstring("bbbbb"))    //1
-	fmt.Println(lengthOfLongestSubstring("pwwkew"))   // 3
+	fmt.Println(lengthOfLongestSubstring("abcabcbb"))
+	fmt.Println(lengthOfLongestSubstring("bbbbb"))
+	fmt.Println(lengthOfLongestSubstring("pwwkew"))
 }
 
 func lengthOfLongestSubstring(s string) int {
-	l, r, max, win := 0, 0, 0, make(map[byte]int)
-	for r < len(s) {
-		c := s[r]
-		r++
-		win[c]++
-
-		for win[c] > 1 {
-			d := s[l]
-			l++
-			win[d]--
+	max := func(a, b int) int {
+		if a > b {
+			return a
 		}
-
-		if r-l > max {
-			max = r - l
-		}
+		return b
 	}
-	return max
+
+	win := make(map[byte]int)
+	var left, right, ans int
+
+	for right < len(s) {
+		c := s[right]
+		if l, ok := win[c]; ok && left <= l {
+			left = l + 1
+		}
+		win[c] = right
+		ans = max(ans, right-left+1)
+		right++
+	}
+	return ans
 }
+
+//leetcode submit region end(Prohibit modification and deletion)
