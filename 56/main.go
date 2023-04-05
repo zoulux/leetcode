@@ -22,8 +22,45 @@ func main() {
 
 	fmt.Println(merge([][]int{
 		{1, 4},
-		{5, 6},
+		//{5, 6},
 	}))
+}
+
+func merge(intervals [][]int) [][]int {
+	// 	第一种情况
+	//	------
+	// 	----
+
+	// 第二种情况
+	// -----
+	// -------
+
+	// 第三种情况
+	//  ----
+	//        ----
+
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	ans := [][]int{
+		intervals[0],
+	}
+
+	for i := 1; i < len(intervals); i++ {
+		top := ans[len(ans)-1]
+		cur := intervals[i]
+
+		if cur[0] <= top[1] {
+			if cur[1] > top[1] {
+				ans[len(ans)-1][1] = cur[1]
+			}
+		} else {
+			ans = append(ans, cur)
+		}
+	}
+
+	return ans
 }
 
 // 判断当前数组是否不需要合并
@@ -70,7 +107,7 @@ func isNoMerge(intervals [][]int) bool {
 	return flag
 }
 
-func merge(intervals [][]int) [][]int {
+func merge2(intervals [][]int) [][]int {
 	if isNoMerge(intervals) {
 		return intervals
 	}

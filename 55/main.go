@@ -15,6 +15,19 @@ func main() {
 }
 
 func canJump(nums []int) bool {
+
+	maxPos := 0
+
+	for i := 0; i < len(nums); i++ {
+		if d := i + nums[i]; d > maxPos {
+			maxPos = d
+		}
+	}
+
+	return maxPos >= len(nums)-1
+}
+
+func canJump2(nums []int) bool {
 	dp := make([]bool, len(nums))
 	for i := 0; i < len(nums); i++ {
 		for j := i; j <= i+nums[i] && j < len(nums); j++ {
