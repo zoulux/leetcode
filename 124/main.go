@@ -47,6 +47,39 @@ func main() {
 }
 
 func maxPathSum(root *TreeNode) int {
+
+	max := func(arr ...int) int {
+		m := arr[0]
+		for _, v := range arr[1:] {
+			if v > m {
+				m = v
+			}
+		}
+		return m
+	}
+
+	ans := math.MinInt
+
+	var _maxPathSum func(root *TreeNode) int
+	_maxPathSum = func(root *TreeNode) int {
+		if root == nil {
+			return 0
+		}
+
+		t1 := _maxPathSum(root.Left)
+		t2 := _maxPathSum(root.Right)
+
+		t := max(root.Val, root.Val+t1, root.Val+t2, root.Val+t1+t2)
+		// 自已作为中间节点计算 （自己，自己+左边，自已+右边，自己+左边+右边）
+		ans = max(ans, t)
+		// 自己作为节点贡献 (自由，自己+左边，自己+右边)
+		return max(root.Val, root.Val+t1, root.Val+t2)
+	}
+	_maxPathSum(root)
+	return ans
+}
+
+func maxPathSum2(root *TreeNode) int {
 	ans := math.MinInt
 	var _maxPathSum func(root *TreeNode) int
 	_maxPathSum = func(root *TreeNode) int {
