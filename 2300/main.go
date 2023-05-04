@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 )
 
 func main() {
-
-	fmt.Println(successfulPairs([]int{
-		15, 8, 19,
-	}, []int{
-		38, 36, 23,
-	}, 328))
+	//
+	//fmt.Println(successfulPairs([]int{
+	//	15, 8, 19,
+	//}, []int{
+	//	38, 36, 23,
+	//}, 328))
 	//
 	//fmt.Println(successfulPairs([]int{
 	//	5, 1, 3,
@@ -19,9 +20,27 @@ func main() {
 	//	1, 2, 3, 4, 5,
 	//}, 7))
 
+	fmt.Println(successfulPairs([]int{
+		4, 1, 3,
+	}, []int{
+		1, 2, 3, 4, 5,
+	}, 8))
+
 }
 
 func successfulPairs(spells []int, potions []int, success int64) []int {
+	sort.Ints(potions)
+	ln := len(potions)
+
+	var ans []int
+	for _, v := range spells {
+		idx := sort.SearchInts(potions, int(math.Ceil(float64(success)/float64(v)))) // 避免对数组中每个数进行乘法
+		ans = append(ans, ln-idx)
+	}
+	return ans
+}
+
+func successfulPairs2(spells []int, potions []int, success int64) []int {
 	sort.Ints(potions)
 	suc := int(success)
 	ln := len(potions)
