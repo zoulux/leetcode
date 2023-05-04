@@ -55,7 +55,6 @@ func orangesRotting(grid [][]int) int {
 	}
 
 	var ans int
-	handleOneCount := 0
 	for len(queue) > 0 {
 		top := queue[0]
 		x, y, z := top[0], top[1], top[2]
@@ -67,17 +66,16 @@ func orangesRotting(grid [][]int) int {
 		for _, d := range [][2]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} {
 			nx, ny := x+d[0], y+d[1]
 			if nx >= 0 && ny >= 0 && nx < n && ny < m && grid[nx][ny] == 1 {
-				handleOneCount++
+				oneCount--
 				queue = append(queue, [3]int{nx, ny, z + 1})
 				grid[nx][ny] = 0
 			}
 		}
 	}
 
-	if handleOneCount != oneCount {
+	if 0 != oneCount {
 		// 存在未处理的 1
 		return -1
 	}
-
 	return ans
 }
