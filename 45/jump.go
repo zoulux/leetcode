@@ -62,8 +62,6 @@ func jump22(nums []int) int {
 				dp[i] = min(dp[i], dp[j]+1)
 			}
 		}
-		//dp[i]
-
 	}
 
 	return dp[n-1]
