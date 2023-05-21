@@ -4,6 +4,10 @@ import "fmt"
 
 func main() {
 
+	arr := []int{2, 3}
+	a2 := append(arr, 4, 5, 6, 7, 8)
+	fmt.Println(cap(a2))
+
 	fmt.Println(maxCoins([]int{
 		1, 5,
 	}))
@@ -13,8 +17,7 @@ func main() {
 	}))
 }
 func maxCoins(nums []int) int {
-	nums = append([]int{1}, nums...)
-	nums = append(nums, 1)
+	nums = append([]int{1}, append(nums, 1)...)
 
 	n := len(nums)
 	dp := make([][]int, n) // 表示 i j 开区间内获取的金币数量

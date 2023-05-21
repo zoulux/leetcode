@@ -102,6 +102,7 @@ func (sl *SkipList) Add(val int) {
 		updateNodes[i] = sl.header
 	}
 
+	//----
 	cur := sl.header
 	for i := sl.level - 1; i >= 0; i-- {
 		for cur.forward[i] != nil && cur.forward[i].Val < val {
@@ -109,6 +110,8 @@ func (sl *SkipList) Add(val int) {
 		}
 		updateNodes[i] = cur
 	}
+
+	//----
 
 	sl.level = max(sl.level, sl.randomLevel())
 
